@@ -9,6 +9,9 @@ services:
       - path: /*
         name: Cache-Control
         value: no-cache
+    envVars:
+      - key: VITE_API_URL
+        value: https://your-backend-url.onrender.com # ЗАМІНІТЬ на ваш URL бекенду
     routes:
       - type: rewrite
         source: /*
