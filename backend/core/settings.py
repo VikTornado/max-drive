@@ -144,6 +144,9 @@ STORAGES = {
     },
 }
 
+# Disable strict manifest checking to handle missing DRF fonts
+WHITENOISE_MANIFEST_STRICT = False
+
 # Legacy settings for compatibility with older packages
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
