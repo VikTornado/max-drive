@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { cars } from '../data/cars';
-import { ExternalLink, Tag, Calendar, Info } from 'lucide-react';
+import { ExternalLink, Calendar, Info } from 'lucide-react';
+import axios from 'axios';
 
 const Inventory = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/cars/');
+        setCars(response.data);
+      } catch (error) {
+        console.error('Error fetching cars:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCars();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="cars" className="py-24 bg-silver-light min-h-[400px] flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+      </section>
+    );
+  }
 
   return (
     <section id="cars" className="py-24 bg-silver-light">
@@ -37,17 +63,18 @@ const Inventory = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
-            className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
+            className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer"
+            onClick={() => navigate(`/car/${car.id}`)}
           >
             {/* Car Image Wrapper */}
             <div className="relative overflow-hidden aspect-[16/10]">
               <img 
-                src={car.image} 
+                src={car.main_image} 
                 alt={car.name} 
                 className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-primary font-bold px-4 py-1.5 rounded-full shadow-md">
-                €{car.price.toLocaleString()}
+                €{parseFloat(car.price).toLocaleString()}
               </div>
             </div>
 
@@ -61,12 +88,18 @@ const Inventory = () => {
                 </div>
               </div>
               
-              <p className="text-slate-600 mb-8 leading-relaxed flex-grow italic">
-                {i18n.language === 'de' ? car.info.de : car.info.en}
+              <p className="text-slate-600 mb-8 leading-relaxed flex-grow italic line-clamp-2">
+                {i18n.language === 'de' ? car.description_de : car.description_en}
               </p>
 
               <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-                <button className="flex items-center gap-2 text-accent font-bold hover:underline">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/car/${car.id}`);
+                  }}
+                  className="flex items-center gap-2 text-accent font-bold hover:underline"
+                >
                   <Info size={18} />
                   {t('inventory.view_details')}
                 </button>

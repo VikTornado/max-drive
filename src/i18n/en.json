@@ -3,7 +3,9 @@
     "about": "About",
     "cars": "Cars",
     "features": "Features",
-    "contact": "Contact"
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout"
   },
   "hero": {
     "title": "Drive Your Dreams with Max Drive",

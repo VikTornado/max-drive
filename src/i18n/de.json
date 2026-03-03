@@ -3,7 +3,9 @@
     "about": "Über uns",
     "cars": "Fahrzeuge",
     "features": "Vorteile",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "logout": "Abmelden"
   },
   "hero": {
     "title": "Fahren Sie Ihre Träume mit Max Drive",
