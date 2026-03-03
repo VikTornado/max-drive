@@ -1,4 +1,4 @@
-asgiref==3.8.1
+asgiref>=3.9.1
 cloudinary==1.44.1
 Django==6.0.2
 django-cloudinary-storage==0.3.0
