@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0f172a;
+  --color-primary-light: #1e293b;
+  --color-primary-dark: #020617;
+  
+  --color-accent: #2563eb;
+  --color-accent-light: #60a5fa;
+  --color-accent-dark: #1d4ed8;
+  
+  --color-silver-light: #f1f5f9;
+  --color-silver: #e2e8f0;
+  --color-silver-dark: #94a3b8;
+
+  --font-sans: "Inter", "system-ui", "sans-serif";
+
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-slide-up: slideUp 0.5s ease-out forwards;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes slideUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #0f172a;
+    background-color: #ffffff;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .section-container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) {
+    .section-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .section-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    transform: scale(1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    display: inline-block;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-accent-dark);
+    transform: scale(1.05);
+  }
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-outline {
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+
+  .nav-link {
+    color: #475569;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+}
+

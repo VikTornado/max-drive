@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "Über uns",
+    "cars": "Fahrzeuge",
+    "features": "Vorteile",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "title": "Fahren Sie Ihre Träume mit Max Drive",
+    "subtitle": "Entdecken Sie eine Premium-Auswahl an hochwertigen Fahrzeugen, die auf Ihren Lebensstil und Ihr Budget zugeschnitten sind.",
+    "cta": "Bestand erkunden"
+  },
+  "about": {
+    "title": "Warum Max Drive wählen?",
+    "text1": "Seit über 15 Jahren in der Automobilbranche hat sich Max Drive einen Ruf für Exzellenz, Transparenz und Kundenzufriedenheit erarbeitet.",
+    "text2": "Jedes Fahrzeug in unserem Showroom durchläuft eine strenge 150-Punkte-Inspektion."
+  },
+  "inventory": {
+    "title": "Unser Aktueller Bestand",
+    "subtitle": "Stöbern Sie in unserer handverlesenen Auswahl an Luxus- und Sportwagen.",
+    "view_details": "Details ansehen",
+    "price": "Preis"
+  },
+  "features": {
+    "title": "Premium Services",
+    "quality": "Qualitätssicherung",
+    "quality_desc": "Jedes Auto wird von unseren Experten zertifiziert und geprüft.",
+    "financing": "Flexible Finanzierung",
+    "financing_desc": "Maßgeschneiderte Zahlungspläne für Ihre finanziellen Bedürfnisse.",
+    "warranty": "Volle Garantie",
+    "warranty_desc": "Regelmäßige Wartung und umfassender Garantieschutz.",
+    "support": "24/7 Support",
+    "support_desc": "Unser engagiertes Team ist immer für Sie da."
+  },
+  "contact": {
+    "title": "Kontaktieren Sie Uns",
+    "subtitle": "Haben Sie eine Frage? Wir freuen uns, von Ihnen zu hören.",
+    "name": "Vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer",
+    "message": "Ihre Nachricht",
+    "send": "Nachricht senden",
+    "success": "Nachricht erfolgreich gesendet!",
+    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es erneut."
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "address": "Max Drive Autohaus, Frankfurt, Deutschland"
+  }
+}

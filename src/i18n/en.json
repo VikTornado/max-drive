@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "About",
+    "cars": "Cars",
+    "features": "Features",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Drive Your Dreams with Max Drive",
+    "subtitle": "Discover a premium selection of high-quality vehicles tailored to your lifestyle and budget. Performance, safety, and luxury in every mile.",
+    "cta": "Explore Inventory"
+  },
+  "about": {
+    "title": "Why Choose Max Drive?",
+    "text1": "With over 15 years in the automotive industry, Max Drive has built a reputation for excellence, transparency, and customer satisfaction.",
+    "text2": "Every vehicle in our showroom undergoes a rigorous 150-point inspection to ensure it meets our highest standards of quality."
+  },
+  "inventory": {
+    "title": "Our Latest Inventory",
+    "subtitle": "Browse our hand-picked selection of luxury and performance cars.",
+    "view_details": "View Details",
+    "price": "Price"
+  },
+  "features": {
+    "title": "Premium Services",
+    "quality": "Quality Assurance",
+    "quality_desc": "Every car is certified and inspected by our expert mechanics.",
+    "financing": "Flexible Financing",
+    "financing_desc": "Tailored payment plans to fit your financial needs.",
+    "warranty": "Full Warranty",
+    "warranty_desc": "Peace of mind with our comprehensive warranty coverage.",
+    "support": "24/7 Support",
+    "support_desc": "Our dedicated team is always here to assist you."
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Have a question? We'd love to hear from you.",
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "message": "Your Message",
+    "send": "Send Message",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "address": "Max Drive Autohaus, Frankfurt, Germany"
+  }
+}
