@@ -68,7 +68,7 @@ const Navbar = ({ isInternalPage = false }) => {
   };
 
   const handleLogin = () => {
-    window.location.href = 'http://localhost:8000/admin/login/?next=http://localhost:5173/';
+    window.location.href = 'http://localhost:8000/admin/';
   };
 
   const handleLogout = () => {

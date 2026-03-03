@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-7qg**hmkgh2g=m&53u(sh_ri7@m#iexn=sjd=c(p%c7tg((x5+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
 
 # Application definition
@@ -140,12 +140,13 @@ CLOUDINARY_STORAGE = {
 CORS_ALLOW_ALL_ORIGINS = True # For development
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
 
 # For development auth to work across ports
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_HTTPONLY = True
 
+LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = 'http://localhost:5173/'
 LOGOUT_REDIRECT_URL = 'http://localhost:5173/'
