@@ -33,6 +33,7 @@ __pycache__/
 backend/static_root/
 
 # Environment
+backend/.env
 .env
 .venv
 env/

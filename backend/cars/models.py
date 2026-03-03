@@ -1,10 +1,11 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class Car(models.Model):
     name = models.CharField(max_length=200)
     year = models.IntegerField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
-    main_image = models.ImageField(upload_to='car_images/')
+    main_image = CloudinaryField('image')
     
     # Localized descriptions
     description_en = models.TextField(blank=True)
@@ -22,7 +23,7 @@ class Car(models.Model):
 
 class CarImage(models.Model):
     car = models.ForeignKey(Car, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='car_images/additional/')
+    image = CloudinaryField('image')
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
