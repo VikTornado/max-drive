@@ -6,6 +6,7 @@ import { Menu, X, Phone, Globe, LogIn, LogOut, User, Settings } from 'lucide-rea
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import axios from 'axios';
+import API_URL from '../api/config';
 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -35,7 +36,7 @@ const Navbar = ({ isInternalPage = false }) => {
     // Check auth status
     const checkAuth = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/auth-status/');
+        const response = await axios.get(`${API_URL}/api/auth-status/`);
         setIsLoggedIn(response.data.is_logged_in);
         setUsername(response.data.username);
       } catch (error) {
@@ -68,15 +69,15 @@ const Navbar = ({ isInternalPage = false }) => {
   };
 
   const handleLogin = () => {
-    window.location.href = 'http://localhost:8000/admin/';
+    window.location.href = `${API_URL}/admin/`;
   };
 
   const handleLogout = () => {
-    window.location.href = 'http://localhost:8000/api/logout/?next=http://localhost:5173/';
+    window.location.href = `${API_URL}/api/logout/?next=${window.location.origin}/`;
   };
 
   const handleAdminClick = () => {
-    window.open('http://localhost:8000/admin/', '_blank');
+    window.open(`${API_URL}/admin/`, '_blank');
   };
 
   return (

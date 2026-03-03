@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowLeft, Calendar, Tag, Info } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../api/config';
 import Navbar from '../components/Navbar';
 import Footer from '../sections/Footer';
 
@@ -18,7 +19,7 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCar = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/cars/${id}/`);
+        const response = await axios.get(`${API_URL}/api/cars/${id}/`);
         setCar(response.data);
       } catch (error) {
         console.error('Error fetching car details:', error);

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar, Info } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../api/config';
 
 const Inventory = () => {
   const { t, i18n } = useTranslation();
@@ -14,7 +15,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/cars/');
+        const response = await axios.get(`${API_URL}/api/cars/`);
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching cars:', error);
