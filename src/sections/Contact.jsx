@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Send, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import axios from 'axios';
+import API_URL from '../api/config';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -10,25 +12,24 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = new FormData(form);
+    const formData = new FormData(form);
     
     try {
-      // Use Formspree or similar service. Update the ID with your own.
-      const response = await fetch('https://formspree.io/f/mqakovge', {
-        method: 'POST',
-        body: data,
-        headers: {
-          'Accept': 'application/json'
-        }
+      const response = await axios.post(`${API_URL}/api/contact/`, {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        message: formData.get('message'),
       });
 
-      if (response.ok) {
+      if (response.status === 200 || response.status === 201) {
         setStatus('SUCCESS');
         form.reset();
       } else {
         setStatus('ERROR');
       }
     } catch (error) {
+      console.error('Contact form error:', error);
       setStatus('ERROR');
     }
   };

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, CarImage
+from .models import Car, CarImage, ContactMessage
 
 class CarImageInline(admin.TabularInline):
     model = CarImage
@@ -12,3 +12,10 @@ class CarAdmin(admin.ModelAdmin):
     inlines = [CarImageInline]
 
 admin.site.register(CarImage)
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'created_at')
+    readonly_fields = ('created_at',)
+    search_fields = ('name', 'email', 'phone', 'message')
+    ordering = ('-created_at',)

@@ -11,7 +11,7 @@ services:
         value: no-cache
     envVars:
       - key: VITE_API_URL
-        value: https://your-backend-url.onrender.com # ЗАМІНІТЬ на ваш URL бекенду
+        value: https://max-drive-backend.onrender.com
     routes:
       - type: rewrite
         source: /*

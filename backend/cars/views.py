@@ -1,10 +1,10 @@
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Car
-from .serializers import CarSerializer
+from .models import Car, ContactMessage
+from .serializers import CarSerializer, ContactMessageSerializer
 
 @api_view(['GET'])
 def auth_status(request):
@@ -21,3 +21,12 @@ def logout_view(request):
 class CarViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Car.objects.all().prefetch_related('images')
     serializer_class = CarSerializer
+
+class ContactMessageViewSet(viewsets.ModelViewSet):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    
+    def get_permissions(self):
+        if self.action == 'create':
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]

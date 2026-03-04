@@ -155,9 +155,9 @@ const Navbar = ({ isInternalPage = false }) => {
                 <button 
                   onClick={handleAdminClick}
                   className={cn("p-2 rounded-full transition-colors flex items-center gap-2", effectiveScrolled ? "bg-slate-100 text-primary hover:bg-slate-200" : "bg-white/10 text-white hover:bg-white/20")}
-                  title="Dashboard"
+                  title="Admin Dashboard"
                 >
-                  <Settings size={20} />
+                  <User size={20} />
                   {username && <span className="text-sm font-bold">{username}</span>}
                 </button>
                 <button 

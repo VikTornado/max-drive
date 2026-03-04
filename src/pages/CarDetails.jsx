@@ -191,7 +191,10 @@ const CarDetails = () => {
               </div>
 
               <div className="mt-10">
-                <button className="w-full bg-primary text-white font-bold py-5 rounded-2xl hover:bg-accent transition-colors duration-300 shadow-lg shadow-primary/10 hover:shadow-accent/20">
+                <button 
+                  onClick={() => navigate('/#contact')}
+                  className="w-full bg-primary text-white font-bold py-5 rounded-2xl hover:bg-accent transition-colors duration-300 shadow-lg shadow-primary/10 hover:shadow-accent/20"
+                >
                   Request Information
                 </button>
               </div>
