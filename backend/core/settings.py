@@ -169,9 +169,11 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://max-drive.onrender.com').rstri
 CSRF_TRUSTED_ORIGINS = [FRONTEND_URL, 'https://max-drive.onrender.com', 'http://localhost:5173', 'http://127.0.0.1:5173']
 CORS_ALLOWED_ORIGINS = [FRONTEND_URL, 'https://max-drive.onrender.com', 'http://localhost:5173', 'http://127.0.0.1:5173']
 
-# For development auth to work across ports
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SAMESITE = 'Lax'
+# For development and production cross-site auth
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 
 LOGIN_URL = '/admin/login/'

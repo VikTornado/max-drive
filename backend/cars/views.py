@@ -1,5 +1,6 @@
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.conf import settings
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -15,7 +16,7 @@ def auth_status(request):
 
 def logout_view(request):
     logout(request)
-    next_url = request.GET.get('next', 'http://localhost:5173/')
+    next_url = request.GET.get('next', f"{settings.FRONTEND_URL}/")
     return redirect(next_url)
 
 class CarViewSet(viewsets.ReadOnlyModelViewSet):
