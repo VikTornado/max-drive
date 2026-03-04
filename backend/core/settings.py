@@ -161,9 +161,10 @@ CLOUDINARY_STORAGE = {
 # CORS_ALLOW_ALL_ORIGINS = True # For development
 # CORS_ALLOW_CREDENTIALS = True
 
-FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173').rstrip('/')
-CSRF_TRUSTED_ORIGINS = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173']
-CORS_ALLOWED_ORIGINS = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173']
+# Production-first FRONTEND_URL to prevent localhost redirects on Render
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://max-drive.onrender.com').rstrip('/')
+CSRF_TRUSTED_ORIGINS = [FRONTEND_URL, 'https://max-drive.onrender.com', 'http://localhost:5173', 'http://127.0.0.1:5173']
+CORS_ALLOWED_ORIGINS = [FRONTEND_URL, 'https://max-drive.onrender.com', 'http://localhost:5173', 'http://127.0.0.1:5173']
 
 # For development auth to work across ports
 SESSION_COOKIE_SAMESITE = 'Lax'
