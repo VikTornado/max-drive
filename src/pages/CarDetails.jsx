@@ -94,6 +94,9 @@ const CarDetails = () => {
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.3 }}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1000&auto=format&fit=crop';
+                    }}
                   />
                 </AnimatePresence>
 
@@ -133,7 +136,14 @@ const CarDetails = () => {
                     onClick={() => setCurrentImageIndex(idx)}
                     className={`relative w-24 aspect-[16/10] rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${currentImageIndex === idx ? 'border-accent' : 'border-transparent'}`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img 
+                      src={img} 
+                      alt="" 
+                      className="w-full h-full object-cover" 
+                      onError={(e) => {
+                        e.target.src = 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1000&auto=format&fit=crop';
+                      }}
+                    />
                   </button>
                 ))}
               </div>

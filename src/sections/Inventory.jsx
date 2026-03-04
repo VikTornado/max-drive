@@ -73,6 +73,9 @@ const Inventory = () => {
                 src={car.main_image} 
                 alt={car.name} 
                 className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
+                onError={(e) => {
+                  e.target.src = 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1000&auto=format&fit=crop';
+                }}
               />
               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-primary font-bold px-4 py-1.5 rounded-full shadow-md">
                 €{parseFloat(car.price).toLocaleString()}
