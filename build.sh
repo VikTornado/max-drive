@@ -8,11 +8,11 @@ cd backend
 python manage.py collectstatic --no-input
 python manage.py migrate
 
-# Create superuser if it doesn't exist (using environment variables on Render)
+# Create superuser if it doesn't exist
 if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
+  echo "Creating superuser..."
   python manage.py createsuperuser \
     --no-input \
     --username $DJANGO_SUPERUSER_USERNAME \
-    --email $DJANGO_SUPERUSER_EMAIL \
-    || true
+    --email $DJANGO_SUPERUSER_EMAIL || echo "Superuser already exists or failed to create"
 fi
