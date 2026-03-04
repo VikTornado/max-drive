@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7qg**hmkgh2g=m&53u(sh_ri7@m#iexn=sjd=c(p%c7tg((x5+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -161,7 +161,9 @@ CLOUDINARY_STORAGE = {
 CORS_ALLOW_ALL_ORIGINS = True # For development
 CORS_ALLOW_CREDENTIALS = True
 
-FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173').rstrip('/')
+# Determine frontend URL: use env var, or fallback based on environment
+DEFAULT_FRONTEND = 'https://max-drive.onrender.com' if os.environ.get('RENDER_EXTERNAL_HOSTNAME') else 'http://localhost:5173'
+FRONTEND_URL = os.getenv('FRONTEND_URL', DEFAULT_FRONTEND).rstrip('/')
 CSRF_TRUSTED_ORIGINS = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173']
 CORS_ALLOWED_ORIGINS = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173']
 
