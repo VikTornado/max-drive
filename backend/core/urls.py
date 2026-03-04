@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-admin.site.site_url = settings.FRONTEND_URL
+admin.site.site_url = 'http://localhost:5173/'
 
 urlpatterns = [
     path('', RedirectView.as_view(url='admin/', permanent=False)),
