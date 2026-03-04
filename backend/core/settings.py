@@ -170,6 +170,13 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_HTTPONLY = True
 
+# Handle redirects correctly in production
+if RENDER_EXTERNAL_HOSTNAME:
+    BACKEND_URL = f"https://{RENDER_EXTERNAL_HOSTNAME}"
+else:
+    BACKEND_URL = "http://localhost:8000"
+
 LOGIN_URL = '/admin/login/'
-LOGIN_REDIRECT_URL = f"{FRONTEND_URL}/"
+# Redirect to admin after saving/login if on backend, or to frontend if specified
+LOGIN_REDIRECT_URL = '/admin/' 
 LOGOUT_REDIRECT_URL = f"{FRONTEND_URL}/"
