@@ -1,5 +1,6 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from ckeditor.fields import RichTextField
 
 class Car(models.Model):
     name = models.CharField(max_length=200)
@@ -8,12 +9,12 @@ class Car(models.Model):
     main_image = CloudinaryField('image')
     
     # Localized descriptions
-    description_en = models.TextField(blank=True)
-    description_de = models.TextField(blank=True)
+    description_en = RichTextField(blank=True)
+    description_de = RichTextField(blank=True)
     
     # Localized specifications
-    specs_en = models.TextField(blank=True)
-    specs_de = models.TextField(blank=True)
+    specs_en = RichTextField(blank=True)
+    specs_de = RichTextField(blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

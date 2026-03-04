@@ -93,7 +93,7 @@ const Inventory = () => {
               </div>
               
               <p className="text-slate-600 mb-8 leading-relaxed flex-grow italic line-clamp-2">
-                {i18n.language === 'de' ? car.description_de : car.description_en}
+                {(i18n.language === 'de' ? car.description_de : car.description_en).replace(/<[^>]*>?/gm, '')}
               </p>
 
               <div className="flex items-center justify-between pt-6 border-t border-slate-100">

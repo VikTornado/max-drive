@@ -174,9 +174,10 @@ const CarDetails = () => {
                     <Info size={20} className="text-accent" />
                     Description
                   </h3>
-                  <p className="text-slate-600 leading-relaxed text-lg italic">
-                    {i18n.language === 'de' ? car.description_de : car.description_en}
-                  </p>
+                  <div 
+                    className="text-slate-600 leading-relaxed text-lg italic ck-content"
+                    dangerouslySetInnerHTML={{ __html: i18n.language === 'de' ? car.description_de : car.description_en }}
+                  />
                 </div>
 
                 <div>
@@ -184,9 +185,10 @@ const CarDetails = () => {
                     <Info size={20} className="text-accent" />
                     Specifications
                   </h3>
-                  <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-slate-700 leading-relaxed">
-                     {i18n.language === 'de' ? car.specs_de : car.specs_en}
-                  </div>
+                  <div 
+                    className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-slate-700 leading-relaxed ck-content"
+                    dangerouslySetInnerHTML={{ __html: i18n.language === 'de' ? car.specs_de : car.specs_en }}
+                  />
                 </div>
               </div>
 
