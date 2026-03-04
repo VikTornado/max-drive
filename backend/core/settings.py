@@ -158,8 +158,8 @@ CLOUDINARY_STORAGE = {
     'SECURE': True,
 }
 
-# CORS_ALLOW_ALL_ORIGINS = True # For development
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True # For simplicity during debugging
+CORS_ALLOW_CREDENTIALS = True
 
 # Production-first FRONTEND_URL to prevent localhost redirects on Render
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://max-drive.onrender.com').rstrip('/')
