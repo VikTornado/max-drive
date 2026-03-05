@@ -80,17 +80,29 @@ def send_contact_email(sender, instance, created, **kwargs):
         
         def _send():
             try:
-                print(f"Attempting to send email to {settings.DEFAULT_FROM_EMAIL}...")
+                # Debug info (will be visible in Render logs)
+                host_user = getattr(settings, 'EMAIL_HOST_USER', 'Not Set')
+                from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'Not Set')
+                print(f"--- EMAIL DEBUG START ---")
+                print(f"Attempting to send email via host user: {host_user[:3]}***{host_user[-3:] if '@' in host_user else ''}")
+                print(f"From: {from_email}")
+                print(f"To: {from_email}")
+                print(f"Subject: {subject}")
+                
                 send_mail(
                     subject,
                     message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [settings.DEFAULT_FROM_EMAIL],
+                    from_email,
+                    [from_email],
                     fail_silently=False,
                 )
-                print("Email sent successfully!")
+                print("--- EMAIL DEBUG: SENT SUCCESS ---")
             except Exception as e:
-                print(f"CRITICAL ERROR sending email: {e}")
+                print(f"--- EMAIL DEBUG: CRITICAL ERROR ---")
+                print(f"Error: {str(e)}")
+                import traceback
+                print(traceback.format_exc())
 
         # Send email in a background thread to avoid blocking the response
         threading.Thread(target=_send).start()
+        print("Background email thread started.")
