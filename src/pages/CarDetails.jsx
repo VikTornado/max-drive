@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowLeft, Calendar, Tag, Info } from 'lucide-react';
 import axios from 'axios';
 import API_URL from '../api/config';
-import Navbar from '../components/Navbar';
-import Footer from '../sections/Footer';
 
 const CarDetails = () => {
   const { id } = useParams();
@@ -64,10 +62,8 @@ const CarDetails = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
-      <Navbar isInternalPage={true} />
-      
-      <main className="flex-grow pt-24 pb-16">
+    <div className="bg-slate-50">
+      <main className="pb-16 pt-16">
         <div className="section-container">
           {/* Back Button */}
           <button 
@@ -205,7 +201,6 @@ const CarDetails = () => {
         </div>
       </main>
       
-      <Footer />
     </div>
   );
 };

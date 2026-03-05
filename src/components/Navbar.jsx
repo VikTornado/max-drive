@@ -182,6 +182,15 @@ const Navbar = ({ isInternalPage = false }) => {
 
         {/* Mobile Toggle */}
         <div className="md:hidden flex items-center gap-4">
+          {isLoggedIn && (
+            <button 
+              onClick={handleAdminClick}
+              className={cn("p-1.5 rounded-full transition-colors", effectiveScrolled ? "bg-slate-100 text-primary" : "bg-white/10 text-white")}
+              title="Admin Dashboard"
+            >
+              <User size={20} />
+            </button>
+          )}
           <button onClick={toggleLanguage} className={cn(effectiveScrolled ? "text-slate-600" : "text-white")}>
             <span className="uppercase font-bold">{i18n.language}</span>
           </button>

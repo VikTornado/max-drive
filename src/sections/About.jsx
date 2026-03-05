@@ -1,10 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 
 const About = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <section id="about" className="py-24 bg-white">
@@ -63,7 +65,10 @@ const About = () => {
               ))}
             </div>
             
-            <button className="btn-primary mt-12">
+            <button 
+              onClick={() => navigate('/about-more')}
+              className="btn-primary mt-12"
+            >
                Learn More
             </button>
           </motion.div>

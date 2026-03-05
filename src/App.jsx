@@ -8,6 +8,8 @@ import Features from './sections/Features';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import CarDetails from './pages/CarDetails';
+import AboutMore from './pages/AboutMore';
+import FloatingCallButton from './components/FloatingCallButton';
 
 import { scroller } from 'react-scroll';
 
@@ -41,23 +43,32 @@ function HomePage() {
   );
 }
 
+const GlobalLayout = ({ children }) => {
+  const { pathname } = useLocation();
+  const isInternalPage = pathname !== '/';
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Navbar isInternalPage={isInternalPage} />
+      <main className="flex-grow">
+        {children}
+      </main>
+      <Footer />
+      <FloatingCallButton />
+    </div>
+  );
+};
+
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <GlobalLayout>
         <Routes>
-          <Route path="/" element={
-            <>
-              <Navbar />
-              <main className="flex-grow">
-                <HomePage />
-              </main>
-              <Footer />
-            </>
-          } />
+          <Route path="/" element={<HomePage />} />
           <Route path="/car/:id" element={<CarDetails />} />
+          <Route path="/about-more" element={<AboutMore />} />
         </Routes>
-      </div>
+      </GlobalLayout>
     </Router>
   );
 }
