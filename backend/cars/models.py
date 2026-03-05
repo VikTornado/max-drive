@@ -56,3 +56,32 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.name} ({self.email})"
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.conf import settings
+
+@receiver(post_save, sender=ContactMessage)
+def send_contact_email(sender, instance, created, **kwargs):
+    if created:
+        subject = f"New Contact Request from {instance.name}"
+        message = (
+            f"You have received a new contact request from your website:\n\n"
+            f"Name: {instance.name}\n"
+            f"Email: {instance.email}\n"
+            f"Phone: {instance.phone}\n"
+            f"Message: {instance.message}\n\n"
+            f"You can view this message in the admin panel: "
+            f"{settings.FRONTEND_URL}/admin/cars/contactmessage/"
+        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.DEFAULT_FROM_EMAIL], # Send to yourself
+                fail_silently=False,
+            )
+        except Exception as e:
+            print(f"Error sending email: {e}")
