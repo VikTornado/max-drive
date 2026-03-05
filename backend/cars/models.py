@@ -62,6 +62,8 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.conf import settings
 
+import threading
+
 @receiver(post_save, sender=ContactMessage)
 def send_contact_email(sender, instance, created, **kwargs):
     if created:
@@ -75,13 +77,18 @@ def send_contact_email(sender, instance, created, **kwargs):
             f"You can view this message in the admin panel: "
             f"{settings.FRONTEND_URL}/admin/cars/contactmessage/"
         )
-        try:
-            send_mail(
-                subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [settings.DEFAULT_FROM_EMAIL], # Send to yourself
-                fail_silently=False,
-            )
-        except Exception as e:
-            print(f"Error sending email: {e}")
+        
+        def _send():
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [settings.DEFAULT_FROM_EMAIL],
+                    fail_silently=True,
+                )
+            except Exception as e:
+                print(f"Error sending email in thread: {e}")
+
+        # Send email in a background thread to avoid blocking the response
+        threading.Thread(target=_send).start()
