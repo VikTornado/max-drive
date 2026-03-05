@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Car, CarImage, ContactMessage
+from .models import Car, CarImage, ContactMessage, AboutPageContent
 
 class CarImageSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
@@ -35,6 +35,11 @@ class CarSerializer(serializers.ModelSerializer):
                 url = url.replace('http://', 'https://', 1)
             return url
         return None
+
+class AboutPageContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutPageContent
+        fields = '__all__'
 
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:

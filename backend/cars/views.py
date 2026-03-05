@@ -4,8 +4,12 @@ from django.conf import settings
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Car, ContactMessage
-from .serializers import CarSerializer, ContactMessageSerializer
+from .models import Car, ContactMessage, AboutPageContent
+from .serializers import CarSerializer, ContactMessageSerializer, AboutPageContentSerializer
+
+class AboutPageContentViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = AboutPageContent.objects.all().order_by('-updated_at')[:1]
+    serializer_class = AboutPageContentSerializer
 
 @api_view(['GET'])
 def auth_status(request):

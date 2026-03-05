@@ -33,6 +33,20 @@ class CarImage(models.Model):
     def __str__(self):
         return f"Image for {self.car.name}"
 
+class AboutPageContent(models.Model):
+    title_en = models.CharField(max_length=200, default="About Our Dealership")
+    title_de = models.CharField(max_length=200, default="Über unser Autohaus")
+    content_en = RichTextField()
+    content_de = RichTextField()
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"About Page Content ({self.updated_at.strftime('%Y-%m-%d %H:%M')})"
+
+    class Meta:
+        verbose_name = "About Page Content"
+        verbose_name_plural = "About Page Content"
+
 class ContactMessage(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()

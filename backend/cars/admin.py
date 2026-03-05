@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Car, CarImage, ContactMessage
+from .models import Car, CarImage, ContactMessage, AboutPageContent
+
+@admin.register(AboutPageContent)
+class AboutPageContentAdmin(admin.ModelAdmin):
+    list_display = ('title_en', 'updated_at')
+    readonly_fields = ('updated_at',)
 
 class CarImageInline(admin.TabularInline):
     model = CarImage
