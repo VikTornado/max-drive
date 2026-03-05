@@ -80,15 +80,17 @@ def send_contact_email(sender, instance, created, **kwargs):
         
         def _send():
             try:
+                print(f"Attempting to send email to {settings.DEFAULT_FROM_EMAIL}...")
                 send_mail(
                     subject,
                     message,
                     settings.DEFAULT_FROM_EMAIL,
                     [settings.DEFAULT_FROM_EMAIL],
-                    fail_silently=True,
+                    fail_silently=False,
                 )
+                print("Email sent successfully!")
             except Exception as e:
-                print(f"Error sending email in thread: {e}")
+                print(f"CRITICAL ERROR sending email: {e}")
 
         # Send email in a background thread to avoid blocking the response
         threading.Thread(target=_send).start()
