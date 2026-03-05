@@ -161,7 +161,7 @@ CLOUDINARY_STORAGE = {
     'SECURE': True,
 }
 
-CORS_ALLOW_ALL_ORIGINS = True # For simplicity during debugging
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
 # Production-first FRONTEND_URL to prevent localhost redirects on Render

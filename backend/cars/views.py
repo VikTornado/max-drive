@@ -30,6 +30,7 @@ class CarViewSet(viewsets.ReadOnlyModelViewSet):
 class ContactMessageViewSet(viewsets.ModelViewSet):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+    authentication_classes = [] # Fix: Disable session authentication to bypass CSRF for contact form
     
     def get_permissions(self):
         if self.action == 'create':
