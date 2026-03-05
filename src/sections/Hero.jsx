@@ -79,7 +79,7 @@ const Hero = () => {
       </div>
 
       {/* Scroll Down Indicator */}
-      <motion.div 
+      {/* <motion.div 
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30"
@@ -87,7 +87,7 @@ const Hero = () => {
         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
           <div className="w-1 h-2 bg-white/30 rounded-full" />
         </div>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };

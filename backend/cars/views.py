@@ -24,7 +24,7 @@ def logout_view(request):
     return redirect(next_url)
 
 class CarViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Car.objects.all().prefetch_related('images')
+    queryset = Car.objects.all().prefetch_related('images').order_by('-created_at')
     serializer_class = CarSerializer
 
 class ContactMessageViewSet(viewsets.ModelViewSet):

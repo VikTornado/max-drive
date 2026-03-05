@@ -21,6 +21,8 @@
     "title": "Our Latest Inventory",
     "subtitle": "Browse our hand-picked selection of luxury and performance cars.",
     "view_details": "View Details",
+    "view_all": "View All",
+    "view_less": "View Less",
     "price": "Price"
   },
   "features": {

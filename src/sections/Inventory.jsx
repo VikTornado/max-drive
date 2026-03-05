@@ -11,6 +11,7 @@ const Inventory = () => {
   const navigate = useNavigate();
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -34,8 +35,69 @@ const Inventory = () => {
     );
   }
 
+  const displayedCars = showAll ? cars : cars.slice(0, 6);
+
+  const CarCard = ({ car, idx, isMobile = false }) => (
+    <motion.div
+      key={`${car.id}-${isMobile}`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: isMobile ? 0 : idx * 0.1 }}
+      className={`group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer snap-center
+        ${isMobile ? 'min-w-[85vw] md:min-w-[400px] mb-8' : ''}`}
+      onClick={() => navigate(`/car/${car.id}`)}
+    >
+      {/* Car Image Wrapper */}
+      <div className="relative overflow-hidden aspect-[16/10]">
+        <img 
+          src={car.main_image} 
+          alt={car.name} 
+          className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
+          onError={(e) => {
+            e.target.src = 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1000&auto=format&fit=crop';
+          }}
+        />
+        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-primary font-bold px-4 py-1.5 rounded-full shadow-md">
+          €{parseFloat(car.price).toLocaleString()}
+        </div>
+      </div>
+
+      {/* Car Details Content */}
+      <div className="p-8 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-2xl font-bold text-primary">{car.name}</h3>
+          <div className="flex items-center gap-1 text-slate-400 font-bold">
+            <Calendar size={16} />
+            <span>{car.year}</span>
+          </div>
+        </div>
+        
+        <p className="text-slate-600 mb-8 leading-relaxed flex-grow italic line-clamp-2 text-sm md:text-base">
+          {(i18n.language === 'de' ? car.description_de : car.description_en).replace(/<[^>]*>?/gm, '')}
+        </p>
+
+        <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/car/${car.id}`);
+            }}
+            className="flex items-center gap-2 text-accent font-bold hover:underline"
+          >
+            <Info size={18} />
+            {t('inventory.view_details')}
+          </button>
+          <div className="w-10 h-10 rounded-full bg-silver-light flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+             <ExternalLink size={18} />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
-    <section id="cars" className="py-24 bg-silver-light">
+    <section id="cars" className="py-24 bg-silver-light overflow-hidden">
       <div className="section-container text-center mb-16">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -56,65 +118,31 @@ const Inventory = () => {
         </motion.p>
       </div>
 
-      <div className="section-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {cars.map((car, idx) => (
-          <motion.div
-            key={car.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer"
-            onClick={() => navigate(`/car/${car.id}`)}
-          >
-            {/* Car Image Wrapper */}
-            <div className="relative overflow-hidden aspect-[16/10]">
-              <img 
-                src={car.main_image} 
-                alt={car.name} 
-                className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
-                onError={(e) => {
-                  e.target.src = 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1000&auto=format&fit=crop';
-                }}
-              />
-              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-primary font-bold px-4 py-1.5 rounded-full shadow-md">
-                €{parseFloat(car.price).toLocaleString()}
-              </div>
-            </div>
-
-            {/* Car Details Content */}
-            <div className="p-8 flex flex-col flex-grow">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-2xl font-bold text-primary">{car.name}</h3>
-                <div className="flex items-center gap-1 text-slate-400 font-bold">
-                  <Calendar size={16} />
-                  <span>{car.year}</span>
-                </div>
-              </div>
-              
-              <p className="text-slate-600 mb-8 leading-relaxed flex-grow italic line-clamp-2">
-                {(i18n.language === 'de' ? car.description_de : car.description_en).replace(/<[^>]*>?/gm, '')}
-              </p>
-
-              <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/car/${car.id}`);
-                  }}
-                  className="flex items-center gap-2 text-accent font-bold hover:underline"
-                >
-                  <Info size={18} />
-                  {t('inventory.view_details')}
-                </button>
-                <div className="w-10 h-10 rounded-full bg-silver-light flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-                   <ExternalLink size={18} />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* Desktop Grid View */}
+      <div className="hidden md:grid section-container grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {displayedCars.map((car, idx) => (
+          <CarCard key={car.id} car={car} idx={idx} />
         ))}
       </div>
+
+      {/* Mobile Slider View */}
+      <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 px-4 pb-8 scrollbar-hide">
+        {cars.map((car, idx) => (
+          <CarCard key={car.id} car={car} idx={idx} isMobile={true} />
+        ))}
+      </div>
+
+      {/* Desktop Show More Button */}
+      {cars.length > 6 && (
+        <div className="hidden md:flex justify-center mt-16">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="px-10 py-4 bg-primary text-white font-bold rounded-full hover:bg-accent transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            {showAll ? t('inventory.view_less') : t('inventory.view_all')}
+          </button>
+        </div>
+      )}
     </section>
   );
 };
