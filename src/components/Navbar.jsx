@@ -183,11 +183,10 @@ const Navbar = ({ isInternalPage = false }) => {
               <>
                 <button 
                   onClick={handleAdminClick}
-                  className={cn("p-2 rounded-full transition-colors flex items-center gap-2", effectiveScrolled ? "bg-slate-100 text-primary hover:bg-slate-200" : "bg-white/10 text-white hover:bg-white/20")}
+                  className={cn("p-2 rounded-full transition-colors flex items-center justify-center", effectiveScrolled ? "bg-slate-100 text-primary hover:bg-slate-200" : "bg-white/10 text-white hover:bg-white/20")}
                   title="Admin Dashboard"
                 >
                   <User size={20} />
-                  {username && username !== 'Admin' && <span className="text-sm font-bold">{username}</span>}
                 </button>
                 <button 
                   onClick={handleLogout}
