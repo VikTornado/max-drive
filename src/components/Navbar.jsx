@@ -33,12 +33,39 @@ const Navbar = ({ isInternalPage = false }) => {
     };
     window.addEventListener('scroll', handleScroll);
     
-    // Check auth status
+    // 1. Check URL parameters for explicit login/logout redirects from Django
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get('loggedin') === 'true') {
+      localStorage.setItem('isAdminLoggedIn', 'true');
+      // Remove query param from URL cleanly
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (searchParams.get('loggedout') === 'true') {
+      localStorage.removeItem('isAdminLoggedIn');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // 2. Set initial state from localStorage (Immediate fallback)
+    const isStoredLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
+    if (isStoredLoggedIn) {
+      setIsLoggedIn(true);
+      setUsername('Admin'); // Fallback username
+    }
+
+    // 3. Verify with backend (will only work if Cross-Site cookies aren't blocked)
     const checkAuth = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/auth-status/`);
-        setIsLoggedIn(response.data.is_logged_in);
-        setUsername(response.data.username);
+        if (response.data.is_logged_in) {
+          setIsLoggedIn(true);
+          setUsername(response.data.username);
+          localStorage.setItem('isAdminLoggedIn', 'true');
+        } else if (isStoredLoggedIn) {
+          // If the browser blocks cookies, auth-status returns false.
+          // Don't overwrite the localStorage if we know they logged in via the redirect flag.
+        } else {
+          setIsLoggedIn(false);
+          localStorage.removeItem('isAdminLoggedIn');
+        }
       } catch (error) {
         console.error('Error checking auth status:', error);
       }
@@ -73,7 +100,9 @@ const Navbar = ({ isInternalPage = false }) => {
   };
 
   const handleLogout = () => {
-    window.location.href = `${API_URL}/api/logout/?next=${window.location.origin}/`;
+    localStorage.removeItem('isAdminLoggedIn');
+    setIsLoggedIn(false);
+    window.location.href = `${API_URL}/api/logout/?next=${encodeURIComponent(window.location.origin + '/?loggedout=true')}`;
   };
 
   const handleAdminClick = () => {
@@ -158,7 +187,7 @@ const Navbar = ({ isInternalPage = false }) => {
                   title="Admin Dashboard"
                 >
                   <User size={20} />
-                  {username && <span className="text-sm font-bold">{username}</span>}
+                  {username && username !== 'Admin' && <span className="text-sm font-bold">{username}</span>}
                 </button>
                 <button 
                   onClick={handleLogout}
@@ -255,8 +284,8 @@ const Navbar = ({ isInternalPage = false }) => {
                 onClick={handleAdminClick}
                 className="flex items-center gap-2 text-white font-bold"
               >
-                <User size={24} />
-                <span>Admin Panel ({username})</span>
+                <Settings size={24} />
+                <span>Admin Panel {username && username !== 'Admin' ? `(${username})` : ''}</span>
               </button>
               <button 
                 onClick={handleLogout}
