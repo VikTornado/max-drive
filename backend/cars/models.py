@@ -79,30 +79,45 @@ def send_contact_email(sender, instance, created, **kwargs):
         )
         
         def _send():
+            import requests
+            import os
             try:
-                # Debug info (will be visible in Render logs)
-                host_user = getattr(settings, 'EMAIL_HOST_USER', 'Not Set')
-                from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'Not Set')
-                print(f"--- EMAIL DEBUG START ---")
-                print(f"Attempting to send email via host user: {host_user[:3]}***{host_user[-3:] if '@' in host_user else ''}")
-                print(f"From: {from_email}")
-                print(f"To: {from_email}")
-                print(f"Subject: {subject}")
+                print(f"--- RESEND EMAIL DEBUG START ---")
+                resend_api_key = os.getenv('RESEND_API_KEY')
+                to_email = getattr(settings, 'DEFAULT_FROM_EMAIL', '3809165@gmail.com')
                 
-                send_mail(
-                    subject,
-                    message,
-                    from_email,
-                    [from_email],
-                    fail_silently=False,
-                )
-                print("--- EMAIL DEBUG: SENT SUCCESS ---")
+                if not resend_api_key:
+                    print("Error: RESEND_API_KEY is not set in environment variables.")
+                    return
+
+                headers = {
+                    'Authorization': f'Bearer {resend_api_key}',
+                    'Content-Type': 'application/json'
+                }
+                
+                # Resend free tier requires sending from onboarding@resend.dev 
+                # unless a custom domain is verified.
+                data = {
+                    "from": "Max Drive Contact <onboarding@resend.dev>",
+                    "to": [to_email],
+                    "subject": subject,
+                    "text": message
+                }
+                
+                print(f"Sending email via Resend to: {to_email}")
+                response = requests.post('https://api.resend.com/emails', headers=headers, json=data)
+                
+                print(f"Resend Response Status: {response.status_code}")
+                print(f"Resend Response Text: {response.text}")
+                response.raise_for_status()
+                
+                print("--- RESEND EMAIL DEBUG: SENT SUCCESS ---")
             except Exception as e:
-                print(f"--- EMAIL DEBUG: CRITICAL ERROR ---")
+                print(f"--- RESEND EMAIL DEBUG: CRITICAL ERROR ---")
                 print(f"Error: {str(e)}")
                 import traceback
                 print(traceback.format_exc())
 
         # Send email in a background thread to avoid blocking the response
         threading.Thread(target=_send).start()
-        print("Background email thread started.")
+        print("Background Resend email thread started.")

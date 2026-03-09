@@ -39,19 +39,41 @@ class ContactMessageViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def test_email(request):
-    from django.core.mail import send_mail
+    import requests
+    import os
     import traceback
+    from django.conf import settings
+    
     try:
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'Not Set')
+        resend_api_key = os.getenv('RESEND_API_KEY')
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', '3809165@gmail.com')
         
-        send_mail(
-            "Test Email from Max Drive",
-            "If you see this, email is working!",
-            from_email,
-            [from_email],
-            fail_silently=False,
-        )
-        return Response({"status": "success", "message": f"Email sent to {from_email}"})
+        if not resend_api_key:
+            return Response({
+                "status": "error",
+                "message": "RESEND_API_KEY is not set in environment variables."
+            }, status=500)
+
+        headers = {
+            'Authorization': f'Bearer {resend_api_key}',
+            'Content-Type': 'application/json'
+        }
+        
+        data = {
+            "from": "Max Drive Contact <onboarding@resend.dev>",
+            "to": [from_email],
+            "subject": "Test Email from Max Drive",
+            "text": "If you see this, the Resend Email API is working perfectly!"
+        }
+        
+        response = requests.post('https://api.resend.com/emails', headers=headers, json=data)
+        response.raise_for_status()
+        
+        return Response({
+            "status": "success", 
+            "message": f"Email sent via Resend to {from_email}",
+            "resend_response": response.json()
+        })
     except Exception as e:
         return Response({
             "status": "error",
