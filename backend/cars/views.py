@@ -36,3 +36,25 @@ class ContactMessageViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return [permissions.AllowAny()]
         return [permissions.IsAdminUser()]
+
+@api_view(['GET'])
+def test_email(request):
+    from django.core.mail import send_mail
+    import traceback
+    try:
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'Not Set')
+        
+        send_mail(
+            "Test Email from Max Drive",
+            "If you see this, email is working!",
+            from_email,
+            [from_email],
+            fail_silently=False,
+        )
+        return Response({"status": "success", "message": f"Email sent to {from_email}"})
+    except Exception as e:
+        return Response({
+            "status": "error",
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }, status=500)

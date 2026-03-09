@@ -190,7 +190,12 @@ const CarDetails = () => {
 
               <div className="mt-10">
                 <button 
-                  onClick={() => navigate('/#contact')}
+                  onClick={() => {
+                    navigate('/');
+                    setTimeout(() => {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
                   className="w-full bg-primary text-white font-bold py-5 rounded-2xl hover:bg-accent transition-colors duration-300 shadow-lg shadow-primary/10 hover:shadow-accent/20"
                 >
                   Request Information

@@ -11,5 +11,6 @@ router.register(r'about', AboutPageContentViewSet)
 urlpatterns = [
     path('auth-status/', auth_status),
     path('logout/', logout_view),
+    path('test-email/', test_email),
     path('', include(router.urls)),
 ]
