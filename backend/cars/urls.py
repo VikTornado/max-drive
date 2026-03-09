@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import CarViewSet, ContactMessageViewSet, AboutPageContentViewSet, auth_status, logout_view
+from .views import CarViewSet, ContactMessageViewSet, AboutPageContentViewSet, auth_status, logout_view, test_email
 
 router = DefaultRouter()
 router.register(r'cars', CarViewSet)
